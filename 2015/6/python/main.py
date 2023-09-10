@@ -17,6 +17,20 @@ def toogle(input):
     return not input
 
 
+def toggle_2(input):
+    return input + 2
+
+
+def turn_on(input):
+    return input + 1
+
+
+def turn_off(input):
+    if input == 0:
+        return 0
+    return input - 1
+
+
 def set_light(value):
     def helper_function(point):
         return value
@@ -27,6 +41,14 @@ def init_grid():
     for x in range(1000):
         for y in range(1000):
             grid[f"{x},{y}"] = False
+
+
+def count_brightness(hash_map):
+    brightness = 0
+    for x in range(1000):
+        for y in range(1000):
+            brightness += hash_map[f"{x},{y}"]
+    return brightness
 
 
 def count_lights(hash_map):
@@ -45,13 +67,13 @@ def main():
             print(line)
             fields = line.split(' ')
             if fields[0] == "toggle":
-                transform_rectangle(fields[1], fields[3], toogle)
+                transform_rectangle(fields[1], fields[3], toggle_2)
             else:
                 if fields[1] == "on":
-                    transform_rectangle(fields[2], fields[4], set_light(True))
+                    transform_rectangle(fields[2], fields[4], turn_on)
                 else:
-                    transform_rectangle(fields[2], fields[4], set_light(False))
-    lights = count_lights(grid)
+                    transform_rectangle(fields[2], fields[4], turn_off)
+    lights = count_brightness(grid)
     print(f"{lights} lights are on!\n")
 
 
